@@ -142,12 +142,39 @@ module.exports = function() {
             if (err) return cb(err);
             cb(null, body);
         });
+    }
+
+    function postToCalendar(event, cb){
+        if (!session.webservices || !session.webservices.calendar)
+            return cb("No webservice found for calendar");
+
+        var params = _.extend({}, session.params, {
+            clientVersion : "2.1",
+            locale : "en_US",
+            usertz : "America/Los_Angeles",
+            lang   : "en",
+            startDate  : event.startDate,
+            endDate    : event.endDate,
+            title      : event.name
+        });
+        var url = session.webservices.calendar.url.replace(':443', '');
+        req.post({
+            url : session.webservices.calendar.url + "/ca/events",
+            qs : params,
+            headers : {
+                host : session.webservices.calendar.url.split('//')[1].split(':')[0],
+            }
+        }, function(err, resp, body) {
+            if (err) return cb(err);
+            cb(null, body);
+        });
     }      
 
     return {
         login: login,
         contacts:  contacts,
-        calendar:  calendar
+        calendar:  calendar,
+        postToCalendar: postToCalendar
     }
 
 }
