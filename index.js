@@ -129,7 +129,7 @@ module.exports = function() {
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.get({
-            url : session.webservices.calendar.url + "/ca/subscribe",
+            url : session.webservices.calendar.url + "/ca",
             qs : params,
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
