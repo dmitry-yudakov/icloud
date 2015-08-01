@@ -129,7 +129,7 @@ module.exports = function() {
             usertz : "GMT-0400",
             lang   : "en",
             start  : "2010-01",
-            end    : Date.now()
+            end    : "2020-01"
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.get({
