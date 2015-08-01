@@ -110,7 +110,7 @@ module.exports = function() {
             url : session.webservices.contacts.url + "/co/startup",
             qs : params,
             headers : {
-                host : session.webservices.contacts.url.split('//')[1].split(':')[0],
+                host : session.webservices.contacts.url.split('//')[1],
             }
         }, function(err, resp, body) {
             if (err) return cb(err);
@@ -129,7 +129,7 @@ module.exports = function() {
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.get({
-            url : session.webservices.calendar.url + "/ca/subscribe",
+            url : session.webservices.calendar.url + "/ca/subscribe/",
             qs : params,
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
