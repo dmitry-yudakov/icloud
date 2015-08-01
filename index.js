@@ -126,7 +126,7 @@ module.exports = function() {
         var params = _.extend({}, session.params, {
             clientVersion : "2.1",
             locale : "en_US",
-            usertz : "GMT{{{1}}}"
+            usertz : "GMT-0400"
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.get({
