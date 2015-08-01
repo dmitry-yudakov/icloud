@@ -128,7 +128,7 @@ module.exports = function() {
             locale : "en_US",
             usertz : "GMT-0400",
             lang   : "en",
-            start  : "2010-01-01T01:00:00",
+            start  : "2010-01",
             end    : Date.now()
         });
         var url = session.webservices.calendar.url.replace(':443', '');
