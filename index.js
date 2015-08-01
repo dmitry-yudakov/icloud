@@ -118,9 +118,36 @@ module.exports = function() {
         });
     }
 
+    //calendar
+    function calendar(cb) {
+        if (!session.webservices || !session.webservices.calendar)
+            return cb("No webservice found for calendar");
+
+        var params = _.extend({}, session.params, {
+            clientVersion : "2.1",
+            locale : "en_US",
+            order : "last,first",
+        });
+
+        //let's get the url first
+        var url = session.webservices.calendar.url;
+        return url;
+        // req.get({
+        //     url : session.webservices.contacts.url + "/co/startup",
+        //     qs : params,
+        //     headers : {
+        //         host : session.webservices.contacts.url.split('//')[1].split(':')[0],
+        //     }
+        // }, function(err, resp, body) {
+        //     if (err) return cb(err);
+        //     cb(null, body);
+        // });
+    }    
+
     return {
         login: login,
-        contacts:  contacts
+        contacts:  contacts,
+        calendar:  calendar
     }
 
 }
