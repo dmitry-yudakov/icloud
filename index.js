@@ -151,12 +151,8 @@ module.exports = function() {
         var params = _.extend({}, session.params, {
             clientVersion : "2.1",
             locale : "en_US",
-            usertz : "America/Los_Angeles",
             lang   : "en",
-            startDate  : event.startDate,
-            endDate    : event.endDate,
-            title      : event.name,
-            calendar   : 'default'
+            calendar : 'default'
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.post({
