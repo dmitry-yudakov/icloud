@@ -152,7 +152,8 @@ module.exports = function() {
             clientVersion : "2.1",
             locale : "en_US",
             usertz : "America/Los_Angeles",
-            lang   : "en"
+            lang   : "en",
+            guid   : "work"
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.post({
