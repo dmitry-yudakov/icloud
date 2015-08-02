@@ -153,30 +153,19 @@ module.exports = function() {
             locale : "en_US",
             usertz : "America/Los_Angeles",
             lang   : "en",
-            calendar : "default",
+            guid   : event.guid
         });
         var url = session.webservices.calendar.url.replace(':443', '');
-        req.get({
+        req.post({
             url : session.webservices.calendar.url + "/ca/events",
             qs : params,
+            json: event,
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
             }
         }, function(err, resp, body) {
             if (err) return cb(err);
-            req.post({
-                url : session.webservices.calendar.url + "/ca/events",
-                qs : params,
-                guid: body.Event[0].pGuid,
-                json: event,
-                headers : {
-                    host : session.webservices.calendar.url.split('//')[1].split(':')[0],
-                }
-            }, function(err, resp, body) {
-                if (err) return cb(err);
-                cb(null, body);
-            });
-
+            cb(null, body);
         });
     }      
 
