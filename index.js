@@ -147,7 +147,7 @@ module.exports = function() {
     function postToCalendar(event, cb){
         if (!session.webservices || !session.webservices.calendar)
             return cb("No webservice found for calendar");
-        refresh_validate();
+        refresh_validate
         var params = _.extend({}, session.params, {
             clientVersion : "2.1",
             locale : "en_US",
