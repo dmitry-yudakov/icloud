@@ -28,7 +28,7 @@ instance.login("username", "password", function(err) {
     if (err) return console.log('login failed');
     instance.calendar(function(err, results) {
         if (err) return console.log('failed to fetch events');
-        console.log(results.Event);
+        console.log(results);
     });
 });
 ```
