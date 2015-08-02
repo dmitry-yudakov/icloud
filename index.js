@@ -152,14 +152,14 @@ module.exports = function() {
             clientVersion : "2.1",
             locale : "en_US",
             usertz : "America/Los_Angeles",
-            lang   : "en",
-            guid   : "work"
+            lang   : "en"
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.post({
             url : session.webservices.calendar.url + "/ca/events",
             qs : params,
             json: event,
+            guid: 'work',
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
             }
