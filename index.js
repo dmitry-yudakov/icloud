@@ -163,7 +163,7 @@ module.exports = function() {
                 "endDate"  : event.endDate,
                 "title"    : event.title,
                 "location" : event.location,
-                "calendar" : 'work'
+                "calendar" : session.webservices.calendar.guid
             },
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
