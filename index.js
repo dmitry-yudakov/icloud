@@ -171,7 +171,7 @@ module.exports = function() {
             }
         }, function(err, resp, body) {
             if (err) return cb(err);
-            cb(null, resp);
+            cb(null, body);
         });
     }      
 
