@@ -33,10 +33,6 @@ instance.login("username", "password", function(err) {
 });
 ```
 
-### services
-
-Contacts is the only service implemented so far. Pull-requests welcome.
-
 
 ### credits
 

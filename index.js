@@ -159,7 +159,6 @@ module.exports = function() {
             url : session.webservices.calendar.url + "/ca/events",
             qs : params,
             json: event,
-            guid: 'work',
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
             }
