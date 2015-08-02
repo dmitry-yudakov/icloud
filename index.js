@@ -155,7 +155,8 @@ module.exports = function() {
             lang   : "en",
             startDate  : event.startDate,
             endDate    : event.endDate,
-            title      : event.name
+            title      : event.name,
+            calendar   : 'default'
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.post({
