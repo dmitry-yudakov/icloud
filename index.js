@@ -158,7 +158,7 @@ module.exports = function() {
         req.post({
             url : session.webservices.calendar.url + "/ca/events",
             qs : params,
-            json: event,
+            Event: event,
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
             }
