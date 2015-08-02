@@ -153,7 +153,7 @@ module.exports = function() {
             locale : "en_US",
             usertz : "America/Los_Angeles",
             lang   : "en",
-            pguid   : event.pguid
+            calendar_guid : event.guid
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.post({
