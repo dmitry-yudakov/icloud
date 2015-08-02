@@ -118,7 +118,7 @@ module.exports = function() {
         });
     }
 
-    //calendar
+    //get events from calendar
     function calendar(cb) {
         if (!session.webservices || !session.webservices.calendar)
             return cb("No webservice found for calendar");
@@ -126,14 +126,14 @@ module.exports = function() {
         var params = _.extend({}, session.params, {
             clientVersion : "2.1",
             locale : "en_US",
-            usertz : "GMT-0400",
-            lang   : "en",
-            start  : "2010-01",
-            end    : "2020-01"
+            usertz : "GMT-0400", //timezone
+            lang   : "en", //language
+            start  : "2010-01", //set a start date from when you want events
+            end    : "2020-01" //set an end date from where you want events 
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.get({
-            url : session.webservices.calendar.url + "/ca/events",
+            url : session.webservices.calendar.url + "/ca/calendars",
             qs : params,
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
@@ -143,7 +143,7 @@ module.exports = function() {
             cb(null, body);
         });
     }
-
+    //post events to calendar
     function postToCalendar(event, cb){
         if (!session.webservices || !session.webservices.calendar)
             return cb("No webservice found for calendar");
