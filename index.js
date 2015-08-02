@@ -128,8 +128,8 @@ module.exports = function() {
             locale : "en_US",
             usertz : "GMT-0400", //timezone
             lang   : "en", //language
-            start  : "2010-01", //set a start date from when you want events
-            end    : "2020-01" //set an end date from where you want events 
+            start  : "2010-01", //set a start date from when you want events YYYY-MM format
+            end    : "2020-01" //set an end date from where you want events YYYY-MM format
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.get({
@@ -164,7 +164,7 @@ module.exports = function() {
                 "endDate"  : event.endDate,
                 "title"    : event.title,
                 "location" : event.location,
-                "calendar" : 'default'
+                "calendar" : default
             },
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
