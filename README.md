@@ -32,7 +32,7 @@ instance.login("username", "password", function(err) {
     });
 });
 ```
-
+####in the index.js, you can change the `Date Range` for the range of events you would like to fetch
 
 ### credits
 
