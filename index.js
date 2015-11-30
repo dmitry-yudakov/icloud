@@ -143,7 +143,8 @@ module.exports = function() {
             cb(null, body);
         });
     }
-    //post events to calendar
+    // TODO: post events to calendar
+    /* NOTE DOES NOT WORK YET, WRITE REQUESTS TO API NEED TO WORK ON */
     function postToCalendar(event, cb){
         if (!session.webservices || !session.webservices.calendar)
             return cb("No webservice found for calendar");
@@ -179,7 +180,7 @@ module.exports = function() {
         login: login,
         contacts:  contacts,
         calendar:  calendar,
-        postToCalendar: postToCalendar
+        // postToCalendar: postToCalendar
     }
 
 }
