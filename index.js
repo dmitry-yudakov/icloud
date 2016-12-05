@@ -4,6 +4,7 @@
 var request = require('request');
 var uuid = require('node-uuid');
 var _ = require('lodash');
+var moment = require('moment')
 
 // configuration
 var setup = 'https://p12-setup.icloud.com/setup/ws/1';
@@ -119,17 +120,28 @@ module.exports = function() {
     }
 
     //get events from calendar
-    function calendar(cb) {
+    function calendar() {
+        var options = {},
+            cb = function (){};
+        for(var index in arguments) {
+            if(typeof arguments[index] === 'function') cb = arguments[index];
+            else if (typeof arguments[index] === 'object') options = arguments[index]
+            else throw new Error('Unsupported argument type');
+        }
+
         if (!session.webservices || !session.webservices.calendar)
             return cb("No webservice found for calendar");
+
+        options.fromDate = options.fromDate || moment().startOf('month');
+        options.toDate = options.toDate || moment().endOf('month');
 
         var params = _.extend({}, session.params, {
             clientVersion : "2.1",
             locale : "en_US",
             usertz : "GMT-0400", //timezone
             lang   : "en", //language
-            start  : "2010-01", //set a start date from when you want events YYYY-MM format
-            end    : "2020-01" //set an end date from where you want events YYYY-MM format
+            startDate  : options.fromDate.format('YYYY-MM-DD'),
+            endDate    : options.toDate.format('YYYY-MM-DD')
         });
         var url = session.webservices.calendar.url.replace(':443', '');
         req.get({
