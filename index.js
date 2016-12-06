@@ -188,11 +188,30 @@ module.exports = function() {
         });
     }      
 
+    function parseDate(dt) {
+        return new Date(dt[1], dt[2] - 1, dt[3], dt[4], dt[5])
+    }
+
+    function generateDate(dt) {
+        //[ 20161206, 2016, 12, 6, 12, 0, 720 ]
+        return [
+            dt.getFullYear() * 10000 + (dt.getMonth()+1) * 100 + dt.getDate(),
+            dt.getFullYear(),
+            dt.getMonth()+1,
+            dt.getDate(),
+            dt.getHours(),
+            dt.getMinutes(),
+            dt.getHours() * 60 + dt.getMinutes()
+        ]
+    }
+
     return {
         login: login,
         contacts:  contacts,
         calendar:  calendar,
         // postToCalendar: postToCalendar
+        parseDate: parseDate,
+        generateDate: generateDate
     }
 
 }

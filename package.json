@@ -4,7 +4,7 @@
   "description": "Access the iCloud API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,9 @@
     "moment": "^2.17.0",
     "node-uuid": "^1.4.1",
     "request": "^2.45.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
