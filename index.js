@@ -155,12 +155,11 @@ module.exports = function() {
             cb(null, body);
         });
     }
-    // TODO: post events to calendar
-    /* NOTE DOES NOT WORK YET, WRITE REQUESTS TO API NEED TO WORK ON */
-    function postToCalendar(event, cb){
+
+    function calendarSaveEvent(event, cb){
         if (!session.webservices || !session.webservices.calendar)
             return cb("No webservice found for calendar");
-        refresh_validate
+        // refresh_validate
         var params = _.extend({}, session.params, {
             clientVersion : "2.1",
             locale : "en_US",
@@ -168,25 +167,53 @@ module.exports = function() {
             lang   : "en"
         });
 
-        var url = session.webservices.calendar.url.replace(':443', '');
-        req.post({
-            url : session.webservices.calendar.url + "/ca/events",
+        // var url = session.webservices.calendar.url.replace(':443', '');
+        var data = {
+            url : session.webservices.calendar.url + "/ca/events/"+event.Event.pGuid+"/"+event.Event.guid,
+            qs : params,
+            json: event,
+            headers : {
+                host : session.webservices.calendar.url.split('//')[1].split(':')[0],
+            }
+        }
+        req.post(data, function(err, resp, body) {
+            if (err) return cb(err);
+            // in case of success iCloud retuns object with guid (unique event id) and pGuid (calendar guid)
+            // otherwise it returns some uuid string
+            if (typeof body !== 'object' || body.guid !== event.Event.guid || body.pGuid !== event.Event.pGuid) 
+                return cb(body);
+            cb(null, body);
+        });
+    }
+
+    function calendarDeleteEvent(event, cb){
+        if (!session.webservices || !session.webservices.calendar)
+            return cb("No webservice found for calendar");
+
+        var params = _.extend({}, session.params, {
+            clientVersion : "5.1",
+            locale : "en_US",
+            usertz : "America/Los_Angeles",
+            lang   : "en",
+            methodOverride: "DELETE",
+        });
+
+        var data = {
+            url : session.webservices.calendar.url + "/ca/events/"+event.Event.pGuid+"/"+event.Event.guid,
             qs : params,
             json: {
-                "startDate": event.startDate,
-                "endDate"  : event.endDate,
-                "title"    : event.title,
-                "location" : event.location,
-                "calendar" : url
+                Event: {}
             },
             headers : {
                 host : session.webservices.calendar.url.split('//')[1].split(':')[0],
             }
-        }, function(err, resp, body) {
+        }
+        req.post(data, function(err, resp, body) {
             if (err) return cb(err);
-            cb(null, body);
+            if (body) return cb(body);
+            cb(null);
         });
-    }      
+    }
 
     function parseDate(dt) {
         return new Date(dt[1], dt[2] - 1, dt[3], dt[4], dt[5])
@@ -209,7 +236,8 @@ module.exports = function() {
         login: login,
         contacts:  contacts,
         calendar:  calendar,
-        // postToCalendar: postToCalendar
+        calendarSaveEvent: calendarSaveEvent,
+        calendarDeleteEvent: calendarDeleteEvent,
         parseDate: parseDate,
         generateDate: generateDate
     }
